@@ -1,0 +1,17 @@
+# secrets
+.env
+
+# virtual environment (uv creates it)
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# build output
+dist/
+build/
+*.egg-info/
+
+# Mac
+.DS_Store
