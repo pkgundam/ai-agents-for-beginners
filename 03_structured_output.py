@@ -4,7 +4,7 @@ from typing import Literal
 # we import load_dotenv so we can read our secret keys from the .env file
 from dotenv import load_dotenv
 
-# we import OpenAI, the class that lets us talk to the LLM
+# we import OpenAI, the class that lets us talk to the LLM 
 from openai import OpenAI
 
 # we import BaseModel, the class we build our form on, pydantic checks the filled form for us
