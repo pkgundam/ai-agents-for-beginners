@@ -14,6 +14,8 @@ MAX_ROUNDS = 20
 
 # we call the LLM, run every tool it asks for, and call it again until it has the answer
 def ask_llm_with_tools(messages):
+    # clone the messages so we don't change the original list
+    llm_messages = messages.copy()
     round_number = 1
     while True:
         print(f"--- round {round_number} ---")
@@ -25,9 +27,9 @@ def ask_llm_with_tools(messages):
 
         response = client.responses.create(
             model="gpt-4.1-mini",
-            input=messages,
-            tools=llm_tools, ## this is how we tell the LLM what tools it can use
-            parallel_tool_calls=False, ## this tells LLM to ask for ONE tool at a time so we can run the tool and give the response.
+            input=llm_messages,
+            tools=llm_tools,  ## this is how we tell the LLM what tools it can use
+            parallel_tool_calls=False,  ## this tells LLM to ask for ONE tool at a time so we can run the tool and give the response.
         )
 
         # we remember if the LLM asked for a tool in this round
@@ -48,14 +50,18 @@ def ask_llm_with_tools(messages):
                 print("Our code ran the tool:", result)
 
                 # we add the LLM asking for a tool to the list of messages so the LLM can see it in the next call
-                messages.append(item)
+                llm_messages.append(item)
 
                 # we add the tool's result to the list of messages so the LLM can see it in the next call
-                messages.append({
-                    "type": "function_call_output",
-                    "call_id": item.call_id,
-                    "output": json.dumps(result),  # we convert the result to a string so the LLM can read it
-                })
+                llm_messages.append(
+                    {
+                        "type": "function_call_output",
+                        "call_id": item.call_id,
+                        "output": json.dumps(
+                            result
+                        ),  # we convert the result to a string so the LLM can read it
+                    }
+                )
 
         # no tool asked means the LLM has its answer, so we return it
         if not asked_for_tool:
