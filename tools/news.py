@@ -1,19 +1,26 @@
+import xml.etree.ElementTree as ET
+
 import requests
 
 
-# The top 5 news stories
+# The top 5 news stories, from the BBC News RSS feed (free, no API key)
+# (the video used a free news API that has since shut down, so this now reads BBC's feed instead)
 def get_top_news():
-    url = "https://actually-relevant-api.onrender.com/api/stories"
-    data = requests.get(url, timeout=30).json()
+    url = "https://feeds.bbci.co.uk/news/rss.xml"
+    response = requests.get(url, timeout=30)
+
+    # RSS is XML, so we read it with Python's built-in XML parser
+    root = ET.fromstring(response.content)
+
     # we take only the first 5 stories
-    top_5 = data["data"][:5]
+    top_5 = root.findall("./channel/item")[:5]
 
     # we keep just the title and the summary of each story, so the LLM gets less to read
     stories = []
     for story in top_5:
         stories.append({
-            "title": story["title"], 
-            "summary": story["summary"]
+            "title": story.findtext("title"),
+            "summary": story.findtext("description")
         })
     return stories
 
