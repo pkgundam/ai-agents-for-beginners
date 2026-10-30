@@ -93,7 +93,7 @@ def json_to_text(saved: dict) -> str:
 # we take what's in the cabinet and put it on the desk, inside the system prompt
 def build_system_prompt(prompt: str) -> str:
     return (
-        prompt
+        prompt  ## this will be the 8 step cricket ground booking workflow for 09 ai agent video
         + "\n\n"
         + MEMORY_RULES
         + f"""

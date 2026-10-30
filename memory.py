@@ -77,6 +77,8 @@ def summarize(old_messages):
     # we turn the old messages into plain text, one line per message, like "user: What's the weather in Atlanta?"
     old_chat = ""
     for message in old_messages:
+        if "role" not in message:
+            continue
         old_chat += f"{message['role']}: {message['content']}\n"
 
     # we send the old messages, and the LLM writes one short summary

@@ -3,7 +3,7 @@ import json
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from tools import run_tool, llm_tools
+from tools import llm_tools, run_tool
 
 load_dotenv()
 client = OpenAI()
@@ -15,7 +15,7 @@ MAX_ROUNDS = 20
 # we call the LLM, run every tool it asks for, and call it again until it has the answer
 def ask_llm_with_tools(messages):
     # clone the messages so we don't change the original list
-    llm_messages = messages.copy()
+    # llm_messages = messages.copy()
     round_number = 1
     while True:
         print(f"--- round {round_number} ---")
@@ -27,7 +27,7 @@ def ask_llm_with_tools(messages):
 
         response = client.responses.create(
             model="gpt-4.1-mini",
-            input=llm_messages,
+            input=messages,
             tools=llm_tools,  ## this is how we tell the LLM what tools it can use
             parallel_tool_calls=False,  ## this tells LLM to ask for ONE tool at a time so we can run the tool and give the response.
         )
@@ -50,10 +50,10 @@ def ask_llm_with_tools(messages):
                 print("Our code ran the tool:", result)
 
                 # we add the LLM asking for a tool to the list of messages so the LLM can see it in the next call
-                llm_messages.append(item)
+                messages.append(item)
 
                 # we add the tool's result to the list of messages so the LLM can see it in the next call
-                llm_messages.append(
+                messages.append(
                     {
                         "type": "function_call_output",
                         "call_id": item.call_id,

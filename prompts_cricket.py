@@ -12,6 +12,14 @@ If the user sends a greeting, say hello back, introduce yourself, say what you c
 Example greeting: Hello, I am the cricket ground booking assistant. I can help you book a cricket ground in a city of your choice. What would you like to do?
 """
 
+# --- the agent: the user gives us a goal, and the LLM works through the steps on its own ---
+AUTONOMY = """
+The user gives you a goal. Work through the steps below on your own until that goal is done.
+After every tool result, look at what came back, decide the next step yourself, and call the next tool straight away.
+Never ask the user for something they have already told you, or something you already know about them.
+Only come back to the user when the goal is finished, or when you are stuck and no tool can get you what you need.
+"""
+
 # --- workflow prompting: our flowchart, one step at a time, in plain English ---
 
 # Step 1: collect the city
@@ -116,6 +124,33 @@ This ends the ground booking process. ALWAYS politely say good-bye and ask the u
 def build_workflow_prompt() -> str:
     return (
         ROLE
+        + "\n\n"
+        + INSTRUCTIONS
+        + "\n\n"
+        + COLLECT_CITY
+        + "\n\n"
+        + COLLECT_DATE
+        + "\n\n"
+        + CHECK_WEATHER
+        + "\n\n"
+        + SHOW_SLOTS
+        + "\n\n"
+        + CHECK_SLOT_AVAILABILITY
+        + "\n\n"
+        + BOOK_SLOT
+        + "\n\n"
+        + DRAFT_INVITE
+        + "\n\n"
+        + SEND_EMAIL
+    )
+
+
+# the ai agent prompt: the role, then every step of our flowchart, in order
+def build_agent_prompt() -> str:
+    return (
+        ROLE
+        + "\n\n"
+        + AUTONOMY
         + "\n\n"
         + INSTRUCTIONS
         + "\n\n"
