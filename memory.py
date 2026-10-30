@@ -5,18 +5,18 @@ from storage import (
     load_facts,
     load_preferences,
     load_routines,
+    store_chat_summary,
     store_facts,
     store_preferences,
-    store_chat_summary,
 )
 
 load_dotenv()
 client = OpenAI()
 
-WINDOW = 4  # the number of messages to keep in short term memory
+WINDOW = 40  # the number of messages to keep in short term memory
 
 # rolling summary: once the conversation reaches 10 messages, we summarize the older ones
-SUMMARIZE_AT = 10
+SUMMARIZE_AT = 100
 
 # The system prompt for the summary: what to keep, what to drop, and how short it should be
 summary_prompt = """You summarize a conversation between a user and an assistant, so the assistant can continue it later.
