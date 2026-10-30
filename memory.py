@@ -1,6 +1,15 @@
 from dotenv import load_dotenv
 from openai import OpenAI
 
+from storage import (
+    load_facts,
+    load_preferences,
+    load_routines,
+    store_facts,
+    store_preferences,
+    store_chat_summary,
+)
+
 load_dotenv()
 client = OpenAI()
 
@@ -77,3 +86,46 @@ def summarize(old_messages):
     ]
     response = client.responses.create(model="gpt-5.2", input=messages)
     return response.output_text
+
+
+# Long-term memory methods: we save and load facts, preferences and routines, so we can use them in future chats
+# we maintain anything to do with memory in this file.
+
+
+# store user facts
+def store_fact(key: str, value: str) -> dict:
+    return store_facts(key, value)
+
+
+# store user preferences
+def store_preference(key: str, value: str) -> dict:
+    return store_preferences(key, value)
+
+
+# load user facts
+def load_user_facts() -> dict:
+    return load_facts()
+
+
+# load user preferences
+def load_user_preferences() -> dict:
+    return load_preferences()
+
+
+# load user routines
+def load_user_routines() -> str:
+    return load_routines()
+
+
+# when the chat ends, we summarize it and save the summary
+# (we reuse the same summarize from above, because it already keeps what matters about the user)
+def store_chat(messages: list[dict]) -> None:
+    # everything except the system prompt
+    conversation = messages[1:]
+
+    # nothing was said, so there is nothing to save
+    if not conversation:
+        return
+
+    summary = summarize(conversation)
+    store_chat_summary(summary)
