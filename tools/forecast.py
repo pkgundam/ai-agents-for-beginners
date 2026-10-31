@@ -1,5 +1,7 @@
 import random
 
+from langchain.tools import tool
+
 # pretend forecasts: we pick one at random
 # (a real weather API would use the city and the date, but the workflow is what we are here to learn)
 FORECASTS = [
@@ -14,6 +16,10 @@ FORECASTS = [
 
 
 # The weather in one of our cities on a date
+@tool(
+    name_or_callable="get_weather_for_city_and_date",
+    description="Get the weather for one of our cities on a date. Call this before deciding whether cricket can be played.",
+)
 def get_weather_for_city_and_date(city: str, date: str) -> dict:
     weather = random.choice(FORECASTS)
     return {
@@ -23,28 +29,3 @@ def get_weather_for_city_and_date(city: str, date: str) -> dict:
         "max_temp_c": weather["max_temp_c"],
         "chance_of_rain_percent": weather["chance_of_rain_percent"],
     }
-
-
-# What the LLM sees: a name, a description and the inputs
-FORECAST_TOOL = {
-    "type": "function",
-    "name": "get_weather_for_city_and_date",
-    "description": "Get the weather for one of our cities on a date. Call this before deciding whether cricket can be played.",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "city": {
-                "type": "string",
-                "description": "A city from get_available_cities",
-            },
-            "date": {
-                "type": "string",
-                "description": "The date you want, as YYYY-MM-DD",
-            },
-        },
-        "required": ["city", "date"],
-    },
-}
-
-if __name__ == "__main__":
-    print(get_weather_for_city_and_date("Hyderabad", "2026-10-31"))

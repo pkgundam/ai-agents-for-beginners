@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from langchain.tools import tool
 from openai import OpenAI
 from pydantic import BaseModel, Field
 
@@ -32,6 +33,10 @@ Make sure to add a note in there to a friend named Ravi to show up on time as he
 
 # Prompt chaining: a second, separate LLM call
 # the only thing it gets is the booking confirmation from the first call
+@tool(
+    name_or_callable="draft_invite_message",
+    description="Write a short invite message for the user's friends about a booking. Only call this once the user has said they want a message drafted.",
+)
 def draft_invite_message(booking_confirmation: str) -> dict:
     response = client.responses.parse(
         model="gpt-5.2",
@@ -47,28 +52,3 @@ def draft_invite_message(booking_confirmation: str) -> dict:
 
     # model_dump turns the form into a plain dict, so it can go back to the first LLM as JSON
     return draft.model_dump()
-
-
-# What the LLM sees: a name, a description and the inputs
-INVITE_TOOL = {
-    "type": "function",
-    "name": "draft_invite_message",
-    "description": "Write a short invite message for the user's friends about a booking. Only call this once the user has said they want a message drafted.",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "booking_confirmation": {
-                "type": "string",
-                "description": "The booking confirmation you got from the previous step: the ground, the city, the date, the time slot and the confirmation number",
-            },
-        },
-        "required": ["booking_confirmation"],
-    },
-}
-
-if __name__ == "__main__":
-    print(
-        draft_invite_message(
-            "slot 10:00-12:00, Hyderabad, 2026-10-31, Rajiv Gandhi International Stadium, booking 123456"
-        )
-    )

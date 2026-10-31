@@ -1,0 +1,22 @@
+1. created the function for the tool
+2. we exported the function
+
+3. we created a schema
+4. we exported the schema
+5. we created a method to run the function for the tool LLM requested
+6. we invoked the LLM
+7. we read LLM's response and identified if LLM asked for the tool
+8. if yes, we parsed the response to get the tool name and tool arguments
+9. we converted the tool arguments from string to dictionary
+10. then we invoked the tool and got the tool response
+11. we added the LLM requesting for a tool & tool's response to list of messages & if LLM asked for another tool, same above repeats
+12. And invoked the LLM again and this is where we needed that while loop around the LLM
+13. finally LLM gave us the answer from the tool's response.
+
+===
+total 13 steps just for one tool call.
+lets see now, using langchain, all we need is just #1 and #2, plus one @tool decorator from langchain on top of the function with a name and a description and
+we dont need steps from 3-13.
+this is what I meant when I said langchain abstracts away 80% of the code for us in the ai-agent video.
+the @tool decorator and create_agent takes care of everything for us
+so first, lets just convert the weather tool to make it work using create_agent

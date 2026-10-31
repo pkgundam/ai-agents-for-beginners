@@ -1,9 +1,14 @@
 import xml.etree.ElementTree as ET
 
 import requests
+from langchain.tools import tool
 
 
 # The top 5 news stories, from the BBC News RSS feed (free, no API key)
+@tool(
+    name_or_callable="get_top_news",
+    description="Get the top 5 news stories right now.",
+)
 def get_top_news():
     url = "https://feeds.bbci.co.uk/news/rss.xml"
     response = requests.get(url, timeout=30)
@@ -17,29 +22,7 @@ def get_top_news():
     # we keep just the title and the summary of each story, so the LLM gets less to read
     stories = []
     for story in top_5:
-        stories.append({
-            "title": story.findtext("title"),
-            "summary": story.findtext("description")
-        })
+        stories.append(
+            {"title": story.findtext("title"), "summary": story.findtext("description")}
+        )
     return stories
-
-
-# What the LLM sees: a name, a description and the inputs
-# schema
-NEWS_TOOL = {
-    "type": "function",
-    "name": "get_top_news",
-    "description": "Get the top 5 news stories right now.",
-    "parameters": {
-        "type": "object", 
-        "properties": {}, 
-        "required": []
-    },
-}
-
-if __name__ == "__main__":
-    print("Getting the top 5 news stories...")
-    top_news = get_top_news()
-    # we print just the title of each story
-    for story in top_news:
-        print("-", story["title"])

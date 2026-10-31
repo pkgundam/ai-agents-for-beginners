@@ -1,0 +1,144 @@
+<mxfile host="65bd71144e">
+    <diagram id="lctools" name="lc_tools">
+        <mxGraphModel dx="1289" dy="1866" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="t1" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontStyle=1;fontSize=14;" value="Before LangChain: 13 steps, all our code" vertex="1">
+                    <mxGeometry height="30" width="340" x="90" y="-40" as="geometry"/>
+                </mxCell>
+                <mxCell id="b1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="1. Write the tool function&lt;br&gt;get_weather(city)" vertex="1">
+                    <mxGeometry height="50" width="200" x="160" y="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="b2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="2. Export the function&lt;br&gt;(tools/__init__.py)" vertex="1">
+                    <mxGeometry height="50" width="200" x="160" y="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="b3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="3. Write the schema&lt;br&gt;WEATHER_TOOL" vertex="1">
+                    <mxGeometry height="50" width="200" x="160" y="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="b4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="4. Export the schema&lt;br&gt;llm_tools" vertex="1">
+                    <mxGeometry height="50" width="200" x="160" y="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="b5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="5. Write run_tool(name, args)" vertex="1">
+                    <mxGeometry height="50" width="200" x="160" y="290" as="geometry"/>
+                </mxCell>
+                <mxCell id="b6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="6. Invoke the LLM&lt;br&gt;with messages + llm_tools" vertex="1">
+                    <mxGeometry height="60" width="200" x="160" y="380" as="geometry"/>
+                </mxCell>
+                <mxCell id="b7" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="7. Read the response: did the LLM ask for a tool?" vertex="1">
+                    <mxGeometry height="100" width="220" x="150" y="470" as="geometry"/>
+                </mxCell>
+                <mxCell id="b8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="8. Parse the tool name and arguments" vertex="1">
+                    <mxGeometry height="60" width="200" x="420" y="490" as="geometry"/>
+                </mxCell>
+                <mxCell id="b9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="9. Arguments: string to dictionary (json.loads)" vertex="1">
+                    <mxGeometry height="60" width="200" x="420" y="580" as="geometry"/>
+                </mxCell>
+                <mxCell id="b10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="10. Run the tool (run_tool) and get its response" vertex="1">
+                    <mxGeometry height="60" width="200" x="420" y="670" as="geometry"/>
+                </mxCell>
+                <mxCell id="b11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="11. Add the tool request + tool response to messages" vertex="1">
+                    <mxGeometry height="70" width="200" x="420" y="760" as="geometry"/>
+                </mxCell>
+                <mxCell id="b13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="13. The LLM answers, using the tool&#39;s response" vertex="1">
+                    <mxGeometry height="60" width="200" x="160" y="620" as="geometry"/>
+                </mxCell>
+                <mxCell id="end1" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" value="End" vertex="1">
+                    <mxGeometry height="70" width="70" x="225" y="720" as="geometry"/>
+                </mxCell>
+                <mxCell id="t2" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontStyle=1;fontSize=14;" value="After LangChain: 2 steps" vertex="1">
+                    <mxGeometry height="30" width="300" x="780" y="-40" as="geometry"/>
+                </mxCell>
+                <mxCell id="a1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="1. Write the tool function&lt;br&gt;get_weather(city)" vertex="1">
+                    <mxGeometry height="50" width="200" x="830" y="10" as="geometry"/>
+                </mxCell>
+                <mxCell id="a1n" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="@tool(name_or_callable=&quot;get_weather&quot;,&lt;br&gt;      description=&quot;Get the current weather in a city.&quot;)" vertex="1">
+                    <mxGeometry height="70" width="250" x="1080" as="geometry"/>
+                </mxCell>
+                <mxCell id="a2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="2. Export it&lt;br&gt;lc_tools = [get_weather, ...]" vertex="1">
+                    <mxGeometry height="50" width="200" x="830" y="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="a3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="create_agent(model, system_prompt, tools=lc_tools)" vertex="1">
+                    <mxGeometry height="60" width="200" x="830" y="150" as="geometry"/>
+                </mxCell>
+                <mxCell id="a4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="agent.invoke(messages)" vertex="1">
+                    <mxGeometry height="60" width="200" x="830" y="380" as="geometry"/>
+                </mxCell>
+                <mxCell id="a5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="create_agent does steps 3 to 13 for us&lt;br&gt;&lt;br&gt;3. the schema (from @tool)&lt;br&gt;4. export the schema&lt;br&gt;5. the run_tool method&lt;br&gt;6. invoke the LLM&lt;br&gt;7. did it ask for a tool?&lt;br&gt;8. parse name + arguments&lt;br&gt;9. string to dictionary&lt;br&gt;10. run the tool&lt;br&gt;11. add request + response to messages&lt;br&gt;12. invoke again (the while loop)&lt;br&gt;13. the final answer" vertex="1">
+                    <mxGeometry height="220" width="250" x="1080" y="300" as="geometry"/>
+                </mxCell>
+                <mxCell id="a6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="result[&quot;messages&quot;][-1]&lt;br&gt;the LLM&#39;s answer" vertex="1">
+                    <mxGeometry height="60" width="200" x="830" y="620" as="geometry"/>
+                </mxCell>
+                <mxCell id="end2" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" value="End" vertex="1">
+                    <mxGeometry height="70" width="70" x="895" y="720" as="geometry"/>
+                </mxCell>
+                <mxCell id="e0" edge="1" parent="1" source="b1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b2" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" edge="1" parent="1" source="b2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b3" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" edge="1" parent="1" source="b3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b4" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" edge="1" parent="1" source="b4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b5" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" edge="1" parent="1" source="b5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b6" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" edge="1" parent="1" source="b6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b7" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" edge="1" parent="1" source="b7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="b8" value="Yes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" edge="1" parent="1" source="b8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b9" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" edge="1" parent="1" source="b9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b10" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" edge="1" parent="1" source="b10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b11" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e10" edge="1" parent="1" source="b11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="b6" value="12. invoke the LLM again (while loop)">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="660" y="795"/>
+                            <mxPoint x="660" y="410"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e11" edge="1" parent="1" source="b7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="b13" value="No">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12" edge="1" parent="1" source="b13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="end1" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e13" edge="1" parent="1" source="a1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="a2" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e14" edge="1" parent="1" source="a1n" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="a1" value="on top">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e15" edge="1" parent="1" source="a2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="a3" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e16" edge="1" parent="1" source="a3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="a4" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e17" edge="1" parent="1" source="a4" style="dashed=1;edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="a5" value="inside">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e18" edge="1" parent="1" source="a4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="a6" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e19" edge="1" parent="1" source="a6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="end2" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
