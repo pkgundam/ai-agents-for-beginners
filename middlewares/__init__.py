@@ -1,4 +1,5 @@
 # from .medical_advise_middleware import block_medical_advice
+from .hitl_middleware import ask_before_acting
 from .middleware import (
     log_after_agent,
     # log_after_model,
@@ -20,4 +21,5 @@ middleware_methods = [
     redact_ssn,
     # block_medical_advice,
     summarize_old_messages,
+    ask_before_acting,
 ]
