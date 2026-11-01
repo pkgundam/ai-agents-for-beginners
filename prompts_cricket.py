@@ -101,16 +101,12 @@ If the book_slot tool returns a failure message, tell the user that the slot is 
 # Step 7: draft the invite message
 DRAFT_INVITE = """
 Step 7. Draft the invite message.
-If the user asked for an invite, a confirmation message, or an email, call draft_invite_message and pass it the booking confirmation you just built.
-If the user has not asked for one, stop after the booking and ask them if they want a message drafted for their friends.
-Show the user the draft exactly as it comes back.
+Always call draft_invite_message and pass it the booking confirmation you just built.
 """
 
 # Step 8: send the email
 SEND_EMAIL = """
 Step 8. Send the email.
-Send the email only if the user has clearly asked you to send it.
-If they only asked for a draft, show them the draft and ask before you send anything.
 When you send, call send_email and pass it the SAME SUBJECT and the SAME EMAIL BODY that was just drafted.
 Tell the user that the email is sent successfully only if the send_email tool returns a success message.
 Display the confirmation message in the following format:

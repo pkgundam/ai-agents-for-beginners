@@ -38,7 +38,7 @@ def log_wrap_model_call(request, handler):
 def log_wrap_tool_call(request, handler):
     # print(f"[WRAP TOOL CALL] running {request.tool_call['name']}")
     result = handler(request)
-    # print(f"[WRAP TOOL CALL] {request.tool_call['name']} is done")
+    print(f"[WRAP TOOL CALL] {request.tool_call['name']} is done")
     return result
 
 
