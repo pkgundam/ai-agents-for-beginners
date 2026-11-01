@@ -2,11 +2,6 @@ from memory import load_user_facts, load_user_preferences, load_user_routines
 
 # 1. Instructions: what the job is, which tool to use when, and the rules (no examples)
 INSTRUCTIONS = """Answer the user's question clearly and briefly.
-Use the tools when the user asks for live data:
-- get_current_datetime for the current date or time.
-- get_weather for the current weather in a city.
-- get_stock_price for the latest price of a stock symbol.
-- get_top_news for the latest news headlines.
 Never invent live data. Use only the values a tool returns.
 If you do not know something, say that you do not know."""
 

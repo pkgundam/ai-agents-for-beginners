@@ -2,7 +2,7 @@ from langchain.agents.middleware import (
     after_agent,
     # after_model,
     before_agent,
-    before_model,
+    # before_model,
     wrap_model_call,
     wrap_tool_call,
 )
