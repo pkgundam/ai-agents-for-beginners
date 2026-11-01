@@ -10,7 +10,8 @@ from langchain.agents.middleware import (
 
 @before_agent
 def log_before_agent(state, runtime):
-    print("[BEFORE AGENT] the agent is starting")
+    # print("[BEFORE AGENT] the agent is starting")
+    return None
 
 
 # @before_model
@@ -21,9 +22,9 @@ def log_before_agent(state, runtime):
 
 @wrap_model_call
 def log_wrap_model_call(request, handler):
-    print("[WRAP MODEL CALL] calling the model")
+    # print("[WRAP MODEL CALL] calling the model")
     response = handler(request)
-    print("[WRAP MODEL CALL] the model answered")
+    # print("[WRAP MODEL CALL] the model answered")
     return response
 
 
@@ -35,12 +36,13 @@ def log_wrap_model_call(request, handler):
 
 @wrap_tool_call
 def log_wrap_tool_call(request, handler):
-    print(f"[WRAP TOOL CALL] running {request.tool_call['name']}")
+    # print(f"[WRAP TOOL CALL] running {request.tool_call['name']}")
     result = handler(request)
-    print(f"[WRAP TOOL CALL] {request.tool_call['name']} is done")
+    # print(f"[WRAP TOOL CALL] {request.tool_call['name']} is done")
     return result
 
 
 @after_agent
 def log_after_agent(state, runtime):
-    print("[AFTER AGENT] the agent is done")
+    # print("[AFTER AGENT] the agent is done")
+    return None
