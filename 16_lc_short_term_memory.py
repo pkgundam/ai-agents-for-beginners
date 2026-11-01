@@ -24,7 +24,7 @@ Keep answers short and clear.
 # and once we get to our clinic-assistant, we will use PostgresSaver so all the chats gets saved
 # into our Postgres database
 inmemory_checkpointer = InMemorySaver()
-thread_id = "chat-101"
+thread_id = input("Chat ID:")
 config = {"configurable": {"thread_id": thread_id}}
 
 agent = create_agent(
@@ -43,11 +43,17 @@ while True:
         # print("[LOG] User typed quit, ending the chat")
         break
 
+    if user_prompt == "switch":
+        thread_id = input("Chat ID: ")
+        config = {"configurable": {"thread_id": thread_id}}
+        print(f"[LOG] Switched to chat {thread_id}")
+        continue
+
     # print("[LOG] Calling the agent with the user's question")
     result = agent.invoke({"messages": [HumanMessage(user_prompt)]}, config=config)
 
     messages = result["messages"]
-    print("========== conv history =============")
+    print(f"========== conv history - {thread_id} =============")
     for message in messages:
         if message.type == "ai" and message.tool_calls:
             for tool_call in message.tool_calls:
@@ -56,7 +62,7 @@ while True:
                 )
         else:
             print(f"[LOG] {message.type}: {message.content}")
-    print("========== conv history =============")
+    print(f"========== conv history - {thread_id} =============")
 
     ai_response = messages[-1].content
     print("Bot:", ai_response)
