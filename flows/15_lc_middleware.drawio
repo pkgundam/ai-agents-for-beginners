@@ -1,0 +1,154 @@
+<mxfile host="65bd71144e">
+    <diagram id="mw" name="lc_middleware">
+        <mxGraphModel dx="2466" dy="2032" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="title" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;fontStyle=1;fontSize=14;" value="Middleware: six places to hook in" vertex="1">
+                    <mxGeometry height="30" width="300" x="250" y="-40" as="geometry"/>
+                </mxCell>
+                <mxCell id="start" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" value="Start" vertex="1">
+                    <mxGeometry height="70" width="70" x="605" as="geometry"/>
+                </mxCell>
+                <mxCell id="q" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="agent.invoke(user question)" vertex="1">
+                    <mxGeometry height="60" width="180" x="550" y="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="ba" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;" value="BEFORE AGENT&lt;br&gt;log_before_agent (once)" vertex="1">
+                    <mxGeometry height="60" width="180" x="550" y="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="bm" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;" value="BEFORE MODEL&lt;br&gt;redact_ssn: SSN to [REDACTED SSN]" vertex="1">
+                    <mxGeometry height="70" width="180" x="550" y="280" as="geometry"/>
+                </mxCell>
+                <mxCell id="wm" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;" value="WRAP MODEL CALL&lt;br&gt;log before + after" vertex="1">
+                    <mxGeometry height="70" width="180" x="550" y="380" as="geometry"/>
+                </mxCell>
+                <mxCell id="model" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="call the model (LLM)" vertex="1">
+                    <mxGeometry height="60" width="150" x="800" y="385" as="geometry"/>
+                </mxCell>
+                <mxCell id="am" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;" value="AFTER MODEL&lt;br&gt;block_medical_advice checks the reply" vertex="1">
+                    <mxGeometry height="70" width="180" x="550" y="480" as="geometry"/>
+                </mxCell>
+                <mxCell id="need" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="did the model ask for a tool?" vertex="1">
+                    <mxGeometry height="100" width="200" x="540" y="580" as="geometry"/>
+                </mxCell>
+                <mxCell id="wt" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;" value="WRAP TOOL CALL&lt;br&gt;log before + after" vertex="1">
+                    <mxGeometry height="70" width="180" x="810" y="595" as="geometry"/>
+                </mxCell>
+                <mxCell id="tool" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="run the tool&lt;br&gt;check_insurance / book_appointment" vertex="1">
+                    <mxGeometry height="60" width="180" x="810" y="710" as="geometry"/>
+                </mxCell>
+                <mxCell id="aa" parent="1" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=2;" value="AFTER AGENT&lt;br&gt;log_after_agent (once)" vertex="1">
+                    <mxGeometry height="60" width="180" x="550" y="720" as="geometry"/>
+                </mxCell>
+                <mxCell id="ans" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="result[&quot;messages&quot;][-1]&lt;br&gt;the answer" vertex="1">
+                    <mxGeometry height="60" width="180" x="550" y="810" as="geometry"/>
+                </mxCell>
+                <mxCell id="end" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" value="End" vertex="1">
+                    <mxGeometry height="70" width="70" x="605" y="900" as="geometry"/>
+                </mxCell>
+                <mxCell id="legend" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=10;spacingTop=6;" value="Middleware = our code that LangChain runs at fixed points&lt;br&gt;&lt;br&gt;Dashed boxes: our six middlewares&lt;br&gt;&lt;br&gt;BEFORE / AFTER AGENT: once per question&lt;br&gt;BEFORE / WRAP / AFTER MODEL: every round&lt;br&gt;WRAP TOOL CALL: every tool&lt;br&gt;&lt;br&gt;After model runs before the tool:&lt;br&gt;that&#39;s where the human in the loop pause goes (19.1)" vertex="1">
+                    <mxGeometry height="225" width="260" x="1080" y="190" as="geometry"/>
+                </mxCell>
+                <mxCell id="e0" edge="1" parent="1" source="start" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="q" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" edge="1" parent="1" source="q" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ba" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" edge="1" parent="1" source="ba" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="bm" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" edge="1" parent="1" source="bm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="wm" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e4" edge="1" parent="1" source="wm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="model" value="around">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" edge="1" parent="1" source="wm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="am" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" edge="1" parent="1" source="am" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="need" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e7" edge="1" parent="1" source="need" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="wt" value="Yes">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" edge="1" parent="1" source="wt" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="tool" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" edge="1" parent="1" source="tool" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="bm" value="next round">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="1030" y="740"/>
+                            <mxPoint x="1030" y="315"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e10" edge="1" parent="1" source="need" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="aa" value="No">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e11" edge="1" parent="1" source="aa" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ans" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12" edge="1" parent="1" source="ans" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="end" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-2" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" value="Start" vertex="1">
+                    <mxGeometry height="70" width="70" x="-345" y="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="agent.invoke(user question)" vertex="1">
+                    <mxGeometry height="60" width="180" x="-400" y="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="call the model (LLM)" vertex="1">
+                    <mxGeometry height="60" width="150" x="-390" y="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-9" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="did the model ask for a tool?" vertex="1">
+                    <mxGeometry height="100" width="200" x="-410" y="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="run the tool&lt;br&gt;check_insurance / book_appointment" vertex="1">
+                    <mxGeometry height="60" width="180" x="-160" y="345" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-13" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="result[&quot;messages&quot;][-1]&lt;br&gt;the answer" vertex="1">
+                    <mxGeometry height="60" width="180" x="-400" y="490" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" value="End" vertex="1">
+                    <mxGeometry height="70" width="70" x="-345" y="580" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-15" edge="1" parent="1" source="Tzdl-PEhXt-R-bk_ZkUG-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="Tzdl-PEhXt-R-bk_ZkUG-3" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-16" edge="1" parent="1" source="Tzdl-PEhXt-R-bk_ZkUG-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-310" y="210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-21" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="Tzdl-PEhXt-R-bk_ZkUG-9" value="">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-310" y="270" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-22" edge="1" parent="1" source="Tzdl-PEhXt-R-bk_ZkUG-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" value="Yes">
+                    <mxGeometry relative="1" x="-0.55" as="geometry">
+                        <mxPoint x="-170" y="380" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-24" edge="1" parent="1" source="Tzdl-PEhXt-R-bk_ZkUG-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="Tzdl-PEhXt-R-bk_ZkUG-7" value="next round">
+                    <mxGeometry relative="1" x="-0.0962" as="geometry">
+                        <mxPoint x="-220" y="335" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-25" edge="1" parent="1" source="Tzdl-PEhXt-R-bk_ZkUG-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" value="No">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-310" y="490" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="Tzdl-PEhXt-R-bk_ZkUG-27" edge="1" parent="1" source="Tzdl-PEhXt-R-bk_ZkUG-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=classic;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="Tzdl-PEhXt-R-bk_ZkUG-14" value="">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6xj1JYLc1hOEaHPAmoyw-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;fontSize=17;" value="&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;- &lt;b&gt;before_agent&lt;/b&gt;: Runs once when the agent starts, before anything else happens.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;- &lt;b&gt;before_model&lt;/b&gt;: Runs before every LLM call and can change the messages going to the LLM.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;- &lt;b&gt;wrap_model_call&lt;/b&gt;: Holds every LLM call. Our code runs first, then makes the call, then sees the reply.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;- &lt;b&gt;after_model&lt;/b&gt;: Runs after every LLM call and can check or change the LLM&#39;s reply.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;- &lt;b&gt;wrap_tool_call&lt;/b&gt;: Holds every tool call. Our code runs first, then runs the tool, then sees the result&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font color=&quot;#000000&quot;&gt;- &lt;b&gt;after_agent&lt;/b&gt;: Runs once when the agent is done, after the final answer.&lt;/font&gt;&lt;/div&gt;" vertex="1">
+                    <mxGeometry height="225" width="630" x="1170" y="480" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
